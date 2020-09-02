@@ -13,5 +13,6 @@ export default defineComponent({});
 <style lang="scss" scoped>
 .item {
   width: 240px;
+  margin: 8px 0;
 }
 </style>
