@@ -1,13 +1,21 @@
 <template>
   <v-card class="item">
-    <v-card-title>やること1</v-card-title>
-    <v-card-text>掃除をする</v-card-text>
+    <v-card-title>{{ item.title }}</v-card-title>
+    <v-card-text>{{ item.text }}</v-card-text>
   </v-card>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@vue/composition-api";
-export default defineComponent({});
+import { defineComponent, PropType } from "@vue/composition-api";
+interface Item {
+  title: string;
+  text: string;
+}
+export default defineComponent({
+  props: {
+    item: Object as PropType<Item>
+  }
+});
 </script>
 
 <style lang="scss" scoped>
