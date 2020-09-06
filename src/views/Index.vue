@@ -1,8 +1,13 @@
 <template>
-  <div class="list-wrapper">
-    <todo-list :title="title.todo" :items="todoItem" />
-    <todo-list :title="title.progress" :items="progressItem" />
-    <todo-list :title="title.done" :items="doneItem" />
+  <div class="main">
+    <div class="button-wrapper">
+      <v-btn color="primary">新規登録</v-btn>
+    </div>
+    <div class="list-wrapper">
+      <todo-list :title="title.todo" :items="todoItem" />
+      <todo-list :title="title.progress" :items="progressItem" />
+      <todo-list :title="title.done" :items="doneItem" />
+    </div>
   </div>
 </template>
 
@@ -49,9 +54,16 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.main {
+  width: 900px;
+  margin: 0 auto;
+}
 .list-wrapper {
   width: 900px;
   margin: 0 auto;
   display: flex;
+}
+.button-wrapper {
+  padding: 10px;
 }
 </style>
