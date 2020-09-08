@@ -1,25 +1,30 @@
 <template>
   <div class="main">
     <div class="button-wrapper">
-      <v-btn color="primary">新規登録</v-btn>
+      <v-btn color="primary" @click.stop="toggleDialog">新規登録</v-btn>
     </div>
     <div class="list-wrapper">
       <todo-list :title="title.todo" :items="todoItem" />
       <todo-list :title="title.progress" :items="progressItem" />
       <todo-list :title="title.done" :items="doneItem" />
     </div>
+    <Dialog ref="dialogRef" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed } from "@vue/composition-api";
+import { defineComponent, reactive, computed, ref } from "@vue/composition-api";
 import TodoList from "@/components/TodoList.vue";
+import Dialog from "@/components/Dialog.vue";
 
 export default defineComponent({
   components: {
-    TodoList
+    TodoList,
+    Dialog
   },
   setup() {
+    const dialogRef = ref<InstanceType<typeof Dialog>>();
+
     const title = reactive({
       todo: "TODO",
       progress: "進行中",
@@ -42,12 +47,19 @@ export default defineComponent({
     const doneItem = computed(() =>
       content.items.filter(item => item.status === 3)
     );
+    function toggleDialog() {
+      if (dialogRef.value) {
+        dialogRef.value.dialog = true;
+      }
+    }
     return {
       title,
       content,
       todoItem,
       progressItem,
-      doneItem
+      doneItem,
+      toggleDialog,
+      dialogRef
     };
   }
 });
