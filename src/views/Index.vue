@@ -20,20 +20,15 @@
         @emitOpenDialog="toggleDialog"
       />
     </div>
-    <Dialog ref="dialogRef" :obj="obj" />
+    <Dialog ref="dialogRef" :obj="propObj" />
   </div>
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  reactive,
-  computed,
-  ref,
-  toRefs
-} from "@vue/composition-api";
+import { defineComponent, reactive, computed, ref } from "@vue/composition-api";
 import TodoList from "@/components/TodoList.vue";
 import Dialog from "@/components/Dialog.vue";
+import { TodoItem } from "@/interface/index";
 
 export default defineComponent({
   components: {
@@ -56,8 +51,9 @@ export default defineComponent({
         { title: "洗濯", text: "午前中に洗濯機を回す", status: 3 }
       ]
     });
-    const propObj = reactive({
-      obj: {}
+    const propObj = reactive<TodoItem>({
+      title: "",
+      text: ""
     });
     const todoItem = computed(() =>
       content.items.filter(item => item.status === 1)
@@ -68,9 +64,10 @@ export default defineComponent({
     const doneItem = computed(() =>
       content.items.filter(item => item.status === 3)
     );
-    function toggleDialog(obj: object) {
+    function toggleDialog(obj: TodoItem) {
       if (obj) {
-        propObj.obj = obj;
+        propObj.title = obj.title;
+        propObj.text = obj.text;
       }
       if (dialogRef.value) {
         dialogRef.value.dialog = true;
@@ -84,7 +81,7 @@ export default defineComponent({
       doneItem,
       toggleDialog,
       dialogRef,
-      ...toRefs(propObj)
+      propObj
     };
   }
 });

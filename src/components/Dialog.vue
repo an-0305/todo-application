@@ -23,14 +23,12 @@ import {
   reactive,
   PropType
 } from "@vue/composition-api";
-interface Item {
-  title: string;
-  text: string;
-}
+import { TodoItem } from "@/interface/index";
+
 export default defineComponent({
   props: {
     obj: {
-      type: Object as PropType<Item>
+      type: Object as PropType<TodoItem>
     }
   },
   setup() {
