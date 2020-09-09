@@ -3,8 +3,8 @@
     <v-card>
       <v-card-title>新規登録</v-card-title>
       <v-card-text>
-        <v-text-field label="やること"></v-text-field>
-        <v-text-field label="詳細"></v-text-field>
+        <v-text-field label="やること" :value="obj.title"></v-text-field>
+        <v-text-field label="詳細" :value="obj.text"></v-text-field>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -17,8 +17,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive } from "@vue/composition-api";
+import {
+  defineComponent,
+  toRefs,
+  reactive,
+  PropType
+} from "@vue/composition-api";
+interface Item {
+  title: string;
+  text: string;
+}
 export default defineComponent({
+  props: {
+    obj: {
+      type: Object as PropType<Item>
+    }
+  },
   setup() {
     const state = reactive({
       dialog: false

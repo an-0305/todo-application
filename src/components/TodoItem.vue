@@ -1,12 +1,12 @@
 <template>
-  <v-card class="item">
+  <v-card class="item" @click="openDialog">
     <v-card-title>{{ item.title }}</v-card-title>
     <v-card-text>{{ item.text }}</v-card-text>
   </v-card>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "@vue/composition-api";
+import { defineComponent, PropType, SetupContext } from "@vue/composition-api";
 interface Item {
   title: string;
   text: string;
@@ -14,6 +14,20 @@ interface Item {
 export default defineComponent({
   props: {
     item: Object as PropType<Item>
+  },
+  setup(props, context: SetupContext) {
+    function openDialog() {
+      if (props.item) {
+        const emitObj = {
+          title: props.item.title,
+          text: props.item.text
+        };
+        context.emit("emitOpenDialog", emitObj);
+      }
+    }
+    return {
+      openDialog
+    };
   }
 });
 </script>

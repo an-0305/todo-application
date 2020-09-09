@@ -4,16 +4,34 @@
       <v-btn color="primary" @click.stop="toggleDialog">新規登録</v-btn>
     </div>
     <div class="list-wrapper">
-      <todo-list :title="title.todo" :items="todoItem" />
-      <todo-list :title="title.progress" :items="progressItem" />
-      <todo-list :title="title.done" :items="doneItem" />
+      <todo-list
+        :title="title.todo"
+        :items="todoItem"
+        @emitOpenDialog="toggleDialog"
+      />
+      <todo-list
+        :title="title.progress"
+        :items="progressItem"
+        @emitOpenDialog="toggleDialog"
+      />
+      <todo-list
+        :title="title.done"
+        :items="doneItem"
+        @emitOpenDialog="toggleDialog"
+      />
     </div>
-    <Dialog ref="dialogRef" />
+    <Dialog ref="dialogRef" :obj="obj" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, ref } from "@vue/composition-api";
+import {
+  defineComponent,
+  reactive,
+  computed,
+  ref,
+  toRefs
+} from "@vue/composition-api";
 import TodoList from "@/components/TodoList.vue";
 import Dialog from "@/components/Dialog.vue";
 
@@ -38,6 +56,9 @@ export default defineComponent({
         { title: "洗濯", text: "午前中に洗濯機を回す", status: 3 }
       ]
     });
+    const propObj = reactive({
+      obj: {}
+    });
     const todoItem = computed(() =>
       content.items.filter(item => item.status === 1)
     );
@@ -47,7 +68,10 @@ export default defineComponent({
     const doneItem = computed(() =>
       content.items.filter(item => item.status === 3)
     );
-    function toggleDialog() {
+    function toggleDialog(obj: object) {
+      if (obj) {
+        propObj.obj = obj;
+      }
       if (dialogRef.value) {
         dialogRef.value.dialog = true;
       }
@@ -59,7 +83,8 @@ export default defineComponent({
       progressItem,
       doneItem,
       toggleDialog,
-      dialogRef
+      dialogRef,
+      ...toRefs(propObj)
     };
   }
 });
