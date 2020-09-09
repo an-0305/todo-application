@@ -1,4 +1,4 @@
 export interface TodoItem {
-  title: string
-  text: string
+  title: string | null
+  text: string | null
 }

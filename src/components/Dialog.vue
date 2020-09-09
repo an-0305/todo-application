@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="600" color="primary">
     <v-card>
-      <v-card-title>新規登録</v-card-title>
+      <v-card-title>{{ getTitle }}</v-card-title>
       <v-card-text>
         <v-text-field label="やること" :value="obj.title"></v-text-field>
         <v-text-field label="詳細" :value="obj.text"></v-text-field>
@@ -21,7 +21,8 @@ import {
   defineComponent,
   toRefs,
   reactive,
-  PropType
+  PropType,
+  computed
 } from "@vue/composition-api";
 import { TodoItem } from "@/interface/index";
 
@@ -31,12 +32,18 @@ export default defineComponent({
       type: Object as PropType<TodoItem>
     }
   },
-  setup() {
+  setup(props) {
     const state = reactive({
       dialog: false
     });
+    const getTitle = computed(() => {
+      if (props.obj) {
+        return props.obj.title ? "編集" : "新規登録";
+      }
+    });
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      getTitle
     };
   }
 });

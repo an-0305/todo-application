@@ -52,8 +52,8 @@ export default defineComponent({
       ]
     });
     const propObj = reactive<TodoItem>({
-      title: "",
-      text: ""
+      title: null,
+      text: null
     });
     const todoItem = computed(() =>
       content.items.filter(item => item.status === 1)
