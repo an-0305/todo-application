@@ -1,0 +1,181 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
+    "version": "1.0.0",
+    "title": "Swagger Petstore",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "127.0.0.1:8084",
+  "basePath": "/v2",
+  "tags": [
+    {
+      "name": "todo",
+      "description": "Everything about your Pets",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/todo/": {
+      "post": {
+        "tags": [
+          "todo"
+        ],
+        "summary": "todoアイテムを新規作成する",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "皿を洗う"
+                },
+                "text": {
+                  "type": "string",
+                  "example": "10時までに皿を洗う"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucess"
+          },
+          "500": {
+            "description": "Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "todo"
+        ],
+        "summary": "todoアイテム一覧を取得する",
+        "responses": {
+          "200": {
+            "description": "Sucess",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "waiting"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "皿を洗う"
+                },
+                "text": {
+                  "type": "string",
+                  "example": "10時までに皿を洗う"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error"
+          },
+          "500": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/todo/{id}/": {
+      "put": {
+        "tags": [
+          "todo"
+        ],
+        "summary": "todoアイテムを更新する",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "waiting"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "皿を洗う"
+                },
+                "text": {
+                  "type": "string",
+                  "example": "10時までに皿を洗う"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Error"
+          },
+          "500": {
+            "description": "Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "todo"
+        ],
+        "summary": "todoアイテムを削除する",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Error"
+          },
+          "500": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  }
+}
