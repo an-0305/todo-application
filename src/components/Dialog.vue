@@ -11,6 +11,9 @@
         <v-btn @click="dialog = false" color="primary">
           登録
         </v-btn>
+        <v-btn @click="dialog = false" v-if="obj.title">
+          削除
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
