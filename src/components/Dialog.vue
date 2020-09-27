@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="600" color="primary">
+  <v-dialog v-model="state.dialog" max-width="600" color="primary">
     <v-card>
       <v-card-title>{{ getTitle }}</v-card-title>
       <v-card-text>
@@ -8,10 +8,10 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn @click="dialog = false" color="primary">
+        <v-btn @click="state.dialog = false" color="primary">
           登録
         </v-btn>
-        <v-btn @click="dialog = false" v-if="obj.title">
+        <v-btn @click="state.dialog = false" v-if="obj.title">
           削除
         </v-btn>
       </v-card-actions>
@@ -20,14 +20,9 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  toRefs,
-  reactive,
-  PropType,
-  computed
-} from "@vue/composition-api";
+import { defineComponent, PropType } from "@vue/composition-api";
 import { TodoItem } from "@/interface/index";
+import toggleDialog from "@/composables/use-dialog";
 
 export default defineComponent({
   props: {
@@ -36,16 +31,9 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const state = reactive({
-      dialog: false
-    });
-    const getTitle = computed(() => {
-      if (props.obj) {
-        return props.obj.title ? "編集" : "新規登録";
-      }
-    });
+    const { state, getTitle } = toggleDialog(props.obj);
     return {
-      ...toRefs(state),
+      state,
       getTitle
     };
   }

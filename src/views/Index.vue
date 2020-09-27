@@ -70,7 +70,7 @@ export default defineComponent({
         propObj.text = obj.text;
       }
       if (dialogRef.value) {
-        dialogRef.value.dialog = true;
+        dialogRef.value.state.dialog = true;
       }
     }
     return {
