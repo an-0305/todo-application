@@ -25,10 +25,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, ref } from "@vue/composition-api";
-import TodoList from "@/components/TodoList.vue";
-import Dialog from "@/components/Dialog.vue";
-import { TodoItem } from "@/interface/index";
+import { defineComponent, reactive, computed, ref } from '@vue/composition-api'
+import TodoList from '@/components/TodoList.vue'
+import Dialog from '@/components/Dialog.vue'
+import { TodoItem } from '@/interface/index'
 
 export default defineComponent({
   components: {
@@ -36,41 +36,41 @@ export default defineComponent({
     Dialog
   },
   setup() {
-    const dialogRef = ref<InstanceType<typeof Dialog>>();
+    const dialogRef = ref<InstanceType<typeof Dialog>>()
 
     const title = reactive({
-      todo: "TODO",
-      progress: "進行中",
-      done: "完了"
-    });
+      todo: 'TODO',
+      progress: '進行中',
+      done: '完了'
+    })
     const content = reactive({
       items: [
-        { title: "掃除をする", text: "今日中に掃除をする", status: 1 },
-        { title: "皿洗い", text: "皿を洗う", status: 1 },
-        { title: "買い物", text: "明日の朝ごはんを買いに行く", status: 2 },
-        { title: "洗濯", text: "午前中に洗濯機を回す", status: 3 }
+        { title: '掃除をする', text: '今日中に掃除をする', status: 1 },
+        { title: '皿洗い', text: '皿を洗う', status: 1 },
+        { title: '買い物', text: '明日の朝ごはんを買いに行く', status: 2 },
+        { title: '洗濯', text: '午前中に洗濯機を回す', status: 3 }
       ]
-    });
+    })
     const propObj = reactive<TodoItem>({
       title: null,
       text: null
-    });
+    })
     const todoItem = computed(() =>
       content.items.filter(item => item.status === 1)
-    );
+    )
     const progressItem = computed(() =>
       content.items.filter(item => item.status === 2)
-    );
+    )
     const doneItem = computed(() =>
       content.items.filter(item => item.status === 3)
-    );
+    )
     function toggleDialog(obj: TodoItem) {
       if (obj) {
-        propObj.title = obj.title;
-        propObj.text = obj.text;
+        propObj.title = obj.title
+        propObj.text = obj.text
       }
       if (dialogRef.value) {
-        dialogRef.value.state.dialog = true;
+        dialogRef.value.state.dialog = true
       }
     }
     return {
@@ -82,9 +82,9 @@ export default defineComponent({
       toggleDialog,
       dialogRef,
       propObj
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" scoped>
