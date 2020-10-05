@@ -4,7 +4,8 @@ module.exports = {
     node: true
   },
   extends: [
-    "plugin:vue/essential",
+    "plugin:vue/vue3-essential",
+    "plugin:vue/vue3-recommended",
     "eslint:recommended",
     "@vue/typescript/recommended",
     "@vue/prettier",
@@ -15,7 +16,10 @@ module.exports = {
   },
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
+    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "vue/max-attributes-per-line": "off",
+    "vue/custom-event-name-casing": "off",
+    "vue/require-explicit-emits": "off"
   },
   overrides: [
     {
