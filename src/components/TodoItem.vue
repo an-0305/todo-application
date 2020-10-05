@@ -6,14 +6,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, SetupContext } from "@vue/composition-api";
+import { defineComponent, PropType, SetupContext } from '@vue/composition-api'
 interface Item {
-  title: string;
-  text: string;
+  title: string
+  text: string
 }
 export default defineComponent({
   props: {
-    item: Object as PropType<Item>
+    item: {
+      type: Object as PropType<Item>,
+      defalut: {
+        title: '',
+        text: ''
+      },
+      required: true
+    }
   },
   setup(props, context: SetupContext) {
     function openDialog() {
@@ -21,15 +28,15 @@ export default defineComponent({
         const emitObj = {
           title: props.item.title,
           text: props.item.text
-        };
-        context.emit("emitOpenDialog", emitObj);
+        }
+        context.emit('emitOpenDialog', emitObj)
       }
     }
     return {
       openDialog
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" scoped>

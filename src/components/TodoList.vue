@@ -13,9 +13,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, SetupContext } from "@vue/composition-api";
-import TodoItem from "@/components/TodoItem.vue";
-import draggable from "vuedraggable";
+import { defineComponent, SetupContext } from '@vue/composition-api'
+import TodoItem from '@/components/TodoItem.vue'
+import draggable from 'vuedraggable'
 export default defineComponent({
   components: {
     TodoItem,
@@ -23,21 +23,23 @@ export default defineComponent({
   },
   props: {
     title: {
-      type: String
+      type: String,
+      default: ''
     },
     items: {
-      type: Array
+      type: Array,
+      default: () => []
     }
   },
   setup(props, context: SetupContext) {
     function emitOpenDialog(obj: object) {
-      context.emit("emitOpenDialog", obj);
+      context.emit('emitOpenDialog', obj)
     }
     return {
       emitOpenDialog
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" scoped>
